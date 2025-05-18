@@ -1,24 +1,32 @@
-const mongoose=require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/Chatbots',{useNewUrlParser:true,useUnifiedTopology:true})
-.then(()=>{
-    console.log("connected")
+
+const mongoose = require('mongoose');
+require('dotenv').config();
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
-.catch((e)=>{
-    console.log(e)
+.then(() => {
+    console.log("MongoDB connected ✅");
 })
-const ChatUserSchema=mongoose.Schema({
-    username:{
-        type:String,
-        required:true
+.catch((e) => {
+    console.error("MongoDB connection error ❌:", e);
+});
+
+const ChatUserSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true
     },
-    password:{
-        type:String,
-        required:true
+    password: {
+        type: String,
+        required: true
     },
-    score:{
-        type:Number,
-        min:0
+    score: {
+        type: Number,
+        default: 0,
+        min: 0
     }
-})
-const ChatBot=mongoose.model('chatbots',ChatUserSchema)
-module.exports=ChatBot
+});
+
+const ChatBot = mongoose.model('Chatbot', ChatUserSchema);
+module.exports = ChatBot;

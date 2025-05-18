@@ -9,13 +9,14 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // reset error
+    setError(''); 
+
     try {
       const res = await fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
         credentials: 'include',
+        body: JSON.stringify({ email, password, remember })
       });
 
       const data = await res.json();
@@ -48,14 +49,10 @@ export default function Register() {
           width: '100%',
           borderRadius: '15px',
           backgroundColor: 'rgba(255, 255, 255, 0.98)',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
           border: 'none',
         }}
       >
-        <h3
-          className="card-title mb-4 text-center"
-          style={{ fontWeight: '700', color: '#4a4a4a' }}
-        >
+        <h3 className="card-title mb-4 text-center text-dark fw-bold">
           Register
         </h3>
 
@@ -67,7 +64,7 @@ export default function Register() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="form-label" style={{ fontWeight: '600', color: '#555' }}>
+            <label htmlFor="email" className="form-label fw-semibold text-secondary">
               Email address
             </label>
             <input
@@ -78,21 +75,11 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              autoFocus
-              style={{
-                borderRadius: '8px',
-                padding: '12px 15px',
-                fontSize: '1rem',
-                borderColor: '#ced4da',
-                transition: 'border-color 0.3s',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#667eea')}
-              onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="form-label" style={{ fontWeight: '600', color: '#555' }}>
+            <label htmlFor="password" className="form-label fw-semibold text-secondary">
               Password
             </label>
             <input
@@ -103,15 +90,6 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{
-                borderRadius: '8px',
-                padding: '12px 15px',
-                fontSize: '1rem',
-                borderColor: '#ced4da',
-                transition: 'border-color 0.3s',
-              }}
-              onFocus={(e) => (e.target.style.borderColor = '#667eea')}
-              onBlur={(e) => (e.target.style.borderColor = '#ced4da')}
             />
           </div>
 
@@ -122,9 +100,8 @@ export default function Register() {
               className="form-check-input"
               checked={remember}
               onChange={() => setRemember(!remember)}
-              style={{ cursor: 'pointer' }}
             />
-            <label htmlFor="remember" className="form-check-label" style={{ cursor: 'pointer', color: '#555', fontWeight: '500' }}>
+            <label htmlFor="remember" className="form-check-label text-secondary">
               Remember me
             </label>
           </div>
@@ -132,26 +109,15 @@ export default function Register() {
           <button
             type="submit"
             className="btn btn-primary w-100"
-            style={{
-              padding: '12px',
-              fontWeight: '600',
-              fontSize: '1.1rem',
-              borderRadius: '10px',
-              backgroundColor: '#667eea',
-              borderColor: '#667eea',
-              boxShadow: '0 4px 12px rgba(102,126,234,0.5)',
-              transition: 'background-color 0.3s ease',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5a67d8')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#667eea')}
+            style={{ backgroundColor: '#667eea', borderColor: '#667eea' }}
           >
             Register
           </button>
         </form>
 
-        <p className="mt-4 text-center" style={{ color: '#444' }}>
+        <p className="mt-4 text-center text-secondary">
           Have an Account?{' '}
-          <Link to="/login" className="text-decoration-none" style={{ color: '#667eea', fontWeight: '600' }}>
+          <Link to="/login" className="text-decoration-none fw-semibold" style={{ color: '#667eea' }}>
             Login
           </Link>
         </p>

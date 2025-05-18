@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
-export default function OurApp() {
+export default function RPT() {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [quiz, setQuiz] = useState('');
@@ -184,16 +184,22 @@ export default function OurApp() {
               {loading ? (
                 <span className="spinner-border spinner-border-sm text-light" role="status" />
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="white"
-                  className="bi bi-send"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M15.964.686a.5.5 0 0 1 .013.707l-15 15a.5.5 0 0 1-.854-.354v-4.24a.5.5 0 0 1 .146-.354l5.585-5.586a.5.5 0 0 0-.707-.707L.293 10.293A.5.5 0 0 1 0 9.939V1.5a.5.5 0 0 1 .707-.459l15-1a.5.5 0 0 1 .257.645z" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+  <path fill="#199be2" d="M35.983,32.448l-3.536,3.536l7.87,7.87c0.195,0.195,0.512,0.195,0.707,0l2.828-2.828	c0.195-0.195,0.195-0.512,0-0.707L35.983,32.448z"></path>
+  <radialGradient id="KGt2acGa95QyN2j07oBX6a_KPmthqkeTgDN_gr1" cx="20.024" cy="20.096" r="19.604" gradientUnits="userSpaceOnUse">
+    <stop offset=".693" stopColor="#006185"></stop>
+    <stop offset=".921" stopColor="#35c1f1"></stop>
+  </radialGradient>
+  <polygon fill="url(#KGt2acGa95QyN2j07oBX6a_KPmthqkeTgDN_gr1)" points="31.601,28.065 28.065,31.601 32.448,35.983 35.983,32.448"></polygon>
+  <linearGradient id="KGt2acGa95QyN2j07oBX6b_KPmthqkeTgDN_gr2" x1="8.911" x2="31.339" y1="8.911" y2="31.339" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stopColor="#a3ffff"></stop>
+    <stop offset=".223" stopColor="#9dfbff"></stop>
+    <stop offset=".53" stopColor="#8bf1ff"></stop>
+    <stop offset=".885" stopColor="#6ee0ff"></stop>
+    <stop offset="1" stopColor="#63daff"></stop>
+  </linearGradient>
+  <circle cx="20" cy="20" r="16" fill="url(#KGt2acGa95QyN2j07oBX6b_KPmthqkeTgDN_gr2)"></circle>
+</svg>
               )}
             </button>
           </form>

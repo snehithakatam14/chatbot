@@ -1,9 +1,10 @@
-import { Link, Outlet} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function checkLogin() {
@@ -16,7 +17,9 @@ function App() {
         setLoggedIn(data.loggedIn);
       } catch (err) {
         console.error('Failed to fetch login status:', err);
-        setLoggedIn(true);
+        setLoggedIn(false);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -29,7 +32,7 @@ function App() {
         method: 'POST',
         credentials: 'include',
       });
-      console.log(res)
+      console.log(res);
       setLoggedIn(false);
     } catch (err) {
       console.error('Error logging out:', err);
@@ -41,8 +44,9 @@ function App() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm">
         <div className="container-fluid">
           <Link className="navbar-brand fw-bold fs-4 text-warning" to="/">
-<img src="../image.png" alt="image" className="small-icon" />
-<span>RPT-(G)PT</span>          </Link>
+            <img src="../image.png" alt="image" className="small-icon" />
+            <span>RPT-(G)PT</span>
+          </Link>
 
           <button
             className="navbar-toggler"
@@ -54,50 +58,52 @@ function App() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              {loggedIn && (
-                <>
-                  <li className="nav-item">
-                    <Link to="/history" className="nav-link text-light fw-semibold">
-                      History
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/rpt" className="nav-link text-light fw-semibold">
-                      Ask RPT
-                    </Link>
-                  </li>
-                </>
-              )}
-              {!loggedIn && (
-                <>
-                  <li className="nav-item">
-                    <Link to="/login" className="nav-link text-light fw-semibold">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/register" className="nav-link text-light fw-semibold">
-                      Register
-                    </Link>
-                  </li>
-                </>
-              )}
-              {loggedIn && (
-                <>
-                  <li className="nav-item">
-                    <Link to="/login" className="nav-link text-light fw-semibold" onClick={logout}>
-                      Logout
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/profile" className="nav-link text-light fw-semibold">
-                      Profile
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
+            {!loading && (
+              <ul className="navbar-nav ms-auto">
+                {loggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/history" className="nav-link text-light fw-semibold">
+                        History
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/rpt" className="nav-link text-light fw-semibold">
+                        Ask RPT
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {!loggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/login" className="nav-link text-light fw-semibold">
+                        Login
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/register" className="nav-link text-light fw-semibold">
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {loggedIn && (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/login" className="nav-link text-light fw-semibold" onClick={logout}>
+                        Logout
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/profile" className="nav-link text-light fw-semibold">
+                        Profile
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            )}
           </div>
         </div>
       </nav>
@@ -125,7 +131,7 @@ function App() {
               <p className="mb-0"><a href="home" className="text-light text-decoration-none" style={{ fontSize: '0.7rem' }}>Home</a></p>
               <p className="mb-0"><a href="register" className="text-light text-decoration-none" style={{ fontSize: '0.7rem' }}>Register</a></p>
               <p className="mb-0"><a href="login" className="text-light text-decoration-none" style={{ fontSize: '0.7rem' }}>Login</a></p>
-              <p className="mb-0"><a href="https://www.linkedin.com/in/rushil-reddy-gujjula-12212a284" target='_blank' className="text-light text-decoration-none" style={{ fontSize: '0.7rem' }}>Contact</a></p>
+              <p className="mb-0"><a href="https://www.linkedin.com/in/rushil-reddy-gujjula-12212a284" target='_blank' rel="noreferrer" className="text-light text-decoration-none" style={{ fontSize: '0.7rem' }}>Contact</a></p>
             </div>
             <div className="col-md-4 col-lg-3 col-xl-3 mx-auto">
               <h5 className="mb-1 fw-bold text-warning" style={{ fontSize: '0.85rem' }}>Contact</h5>

@@ -4,7 +4,7 @@ import App from './App.jsx';
 import Home from './Home.jsx';
 import History from './History.jsx';
 import Login from './Login.jsx';
-import OurApp from './OurApp.jsx';
+import RPT from './RPT.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Register from './Register.jsx';
 import Logout from './Logout.jsx';
@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<Home />} />
-          <Route path='rpt' element={<OurApp />} />
+          <Route path='rpt' element={<RPT />} />
           <Route path="history" element={<History />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
