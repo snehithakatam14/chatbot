@@ -1,29 +1,33 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
   const [error, setError] = useState(null);
 
-  async function showprofile() {
-    try {
-      const res = await fetch('http://localhost:3000/profile', {
-        method: 'GET',
-        credentials: 'include'
-      });
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const res = await fetch('http://localhost:3000/profile', {
+          method: 'GET',
+          credentials: 'include'
+        });
 
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: Unauthorized or server error`);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: Unauthorized or server error`);
+        }
+
+        const data = await res.json();
+        setProfile(data.user);
+        setError(null);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+        setProfile(null);
       }
-
-      const data = await res.json();
-      setProfile(data.user);
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
-      setProfile(null);
     }
-  }
+    fetchProfile();
+  },[])
 
   return (
     <div style={{
@@ -37,24 +41,6 @@ export default function Profile() {
       textAlign: 'center'
     }}>
       <h2 style={{ color: '#333', marginBottom: '20px' }}>User Profile</h2>
-
-      <button
-        onClick={showprofile}
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          backgroundColor: '#007bff',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          transition: 'background-color 0.3s'
-        }}
-        onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0056b3')}
-        onMouseOut={e => (e.currentTarget.style.backgroundColor = '#007bff')}
-      >
-        Show Profile
-      </button>
 
       <div style={{ marginTop: '20px' }}>
         {error && (

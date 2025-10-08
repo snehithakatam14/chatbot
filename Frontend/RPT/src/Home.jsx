@@ -74,7 +74,6 @@ function Home() {
         data-aos-delay="400"
       />
 
-      {/* Only show login/register if not logged in */}
       {!loggedIn && (
         <div className="d-flex justify-content-center gap-3 mt-3" data-aos="fade-up" data-aos-delay="500">
           <Link

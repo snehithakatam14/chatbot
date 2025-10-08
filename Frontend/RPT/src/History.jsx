@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -6,7 +7,7 @@ export default function History() {
   const [history1, setHistory1] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
+useEffect(() => {
   async function getHistory() {
     try {
       const res = await fetch('http://localhost:3000/history', {
@@ -22,13 +23,16 @@ export default function History() {
       }
 
       const data = await res.json();
+      
       if (data.history.length === 0) setHistory1(true);
-      setHistoryData(Array.isArray(data) ? data : data.history || []);
+      setHistoryData(Array.isArray(data) ? data : data.history.reverse() || []);
       setCurrentPage(1);
     } catch (err) {
       console.error('Error fetching history:', err);
     }
   }
+  getHistory();
+},[])
 
   const totalPages = Math.ceil(historyData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -51,26 +55,7 @@ export default function History() {
       display: 'flex',
       flexDirection: 'column'
     }}>
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <h2 style={{ color: '#333' }}>History</h2>
-        <button
-          onClick={getHistory}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            backgroundColor: '#007bff',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            transition: 'background-color 0.3s'
-          }}
-          onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0056b3')}
-          onMouseOut={e => (e.currentTarget.style.backgroundColor = '#007bff')}
-        >
-          Show History
-        </button>
-      </div>
+     
 
       {history1 && (
         <p style={{ color: '#888', textAlign: 'center', fontStyle: 'italic' }}>
